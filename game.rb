@@ -2,7 +2,7 @@ ROLE_NUM = 2
 SIDE_NUM = 2
 HAND_CARD_NUM = 4
 
-class Game
+class Combat
   attr_accessor :roles
   attr_reader :cards_pool, :turn_num, :role_num
 
@@ -16,6 +16,24 @@ class Game
 
   def game_init
     deal
+  end
+
+  def fight
+
+  end
+
+  def who_win?
+    win_side = -1
+    SIDE_NUM.each do |i|
+      side_is_live = @roles[i].inject(false) { |all, r| all || r.is_live? }
+      if side_is_live
+        return -1 unless win_side == -1 # more than one side are live
+
+        win_side = i
+      end
+    end
+
+    win_side
   end
 
   # 发牌

@@ -15,6 +15,10 @@ class Role
     @health <= 0
   end
 
+  def is_live?
+    !is_dead?
+  end
+
   def has_fee?
     @fee > 0
   end
