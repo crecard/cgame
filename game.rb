@@ -2,7 +2,7 @@ ROLE_NUM = 2
 SIDE_NUM = 2
 HAND_CARD_NUM = 4
 
-class Combat
+class Game
   attr_accessor :roles
   attr_reader :cards_pool, :turn_num, :role_num
 
