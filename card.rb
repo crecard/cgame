@@ -9,10 +9,10 @@ class StrikeCard < Card
   @@fee = 1
   @@damage = 5
 
-  attr_accessor :owner
+  attr_reader :name
 
-  def initialize(owner)
-    @owner = owner
+  def initialize
+    @name = '攻击'
   end
 
   def fee
@@ -23,7 +23,11 @@ class StrikeCard < Card
     @@damage
   end
 
-  def use(combat, target)
+  def description
+    "伤害 #{damage}"
+  end
+
+  def use(combat, owner, target)
     return -1 unless owner.has_energy?(self.fee)
 
     attack(target)
