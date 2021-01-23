@@ -3,6 +3,11 @@ class Creacard::Card
     owner.energy -= fee
     target.get_damage(damage)
   end
+
+  def info
+    puts "费用: #{fee} | 伤害: #{damage}"
+    puts "#{description}"
+  end
 end
 
 class Creacard::StrikeCard < Creacard::Card

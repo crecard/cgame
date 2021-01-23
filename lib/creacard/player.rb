@@ -1,6 +1,8 @@
 module Creacard
   class Player
     attr_accessor :max_health, :health, :energy, :turn_energy, :block, :draw_count
+
+    # :built, :unused, :hand, :used, :discarded
     attr_accessor :decks
     attr_accessor :combat
 
@@ -23,16 +25,16 @@ module Creacard
         built: built_dect,
         unused: [],
         hand: [],
+        used: [],
         discarded: [],
-        depleted: []
       }
     end
 
     def new_combat
       @decks[:unused] = @decks[:built].shuffle!
       @decks[:hand] = @decks[:unused].pop(@draw_count)
+      @decks[:used] = []
       @decks[:discarded] = []
-      @decks[:depleted] = []
     end
 
     def is_dead?
@@ -58,15 +60,14 @@ module Creacard
       @health -= damage
     end
 
-    def info
+    def player_info
       puts "血量: #{@health}/#{@max_health} | 能量: #{@energy} | 护甲: #{@block}"
-      deck_info(:built)
     end
 
     def deck_info(deck_type)
-      deck = @decks[deck_type]
-      deck.each_with_index do |card, i|
-        puts "#{i}: #{card.name}"
+      @decks[deck_type].each_with_index do |card, i|
+        puts "#{i + 1}: #{card.name}"
+        puts "费用: #{card.fee} | 攻击: #{card.damage}"
         puts "#{card.description}"
       end
     end

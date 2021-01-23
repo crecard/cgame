@@ -1,3 +1,5 @@
+require 'pry'
+
 require 'creacard/player'
 require 'creacard/combat'
 require 'creacard/card'
