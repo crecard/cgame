@@ -1,4 +1,4 @@
-class Combat
+class Creacard::Combat
   attr_accessor :team_up, :team_down
   attr_reader :turn_num
 

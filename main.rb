@@ -1,11 +1,11 @@
-require './player.rb'
-require './combat.rb'
-require './card.rb'
+$:.unshift File.join(File.dirname(__FILE__), *%w[lib])
 
-player_a = Player.new(100, Array.new(10, StrikeCard.new))
-player_b = Player.new(100, Array.new(10, StrikeCard.new))
+require_relative './lib/creacard'
 
-combat = Combat.new([player_a], [player_b])
+player_a = Creacard::Player.new(100, Array.new(10, Creacard::StrikeCard.new))
+player_b = Creacard::Player.new(100, Array.new(10, Creacard::StrikeCard.new))
+
+combat = Creacard::Combat.new([player_a], [player_b])
 combat.begin
 
 combat.info

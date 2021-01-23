@@ -1,11 +1,11 @@
-class Card
+class Creacard::Card
   def attack(target)
     owner.energy -= fee
     target.get_damage(damage)
   end
 end
 
-class StrikeCard < Card
+class Creacard::StrikeCard < Creacard::Card
   @@fee = 1
   @@damage = 5
 
