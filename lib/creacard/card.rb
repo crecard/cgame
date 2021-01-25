@@ -1,16 +1,22 @@
 require 'yaml'
 
 class Creacard::Card
-  attr_reader :name, :fee, :attributes
+  attr_reader :name, :fee, :targets, :attributes
 
-  def initialize(name, fee, attributes)
+  def initialize(name, fee, targets, attributes)
     @name = name
     @fee = fee
+    @targets = targets
     @attributes = attributes
   end
 
   def act(owner, combat)
+    target_choosed = {}
+    @attributes.each do |attr|
+      unless target_choosed[attr.target]
 
+      end
+    end
   end
 
   def description
@@ -37,6 +43,7 @@ class Creacard::Card
         Creacard::Card.new(
           data['name'],
           data['fee'],
+          data['targets'],
           attributes
         )
       end

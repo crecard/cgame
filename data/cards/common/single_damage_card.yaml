@@ -1,8 +1,8 @@
 single_damage_card:
   name: 打击
   fee: 1
-  need_targets:
-  - enemy: one
+  targets:
+    one: enemy
   attributes:
   - damage:
       target_type: enemy_single
