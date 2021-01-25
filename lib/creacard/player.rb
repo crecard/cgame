@@ -48,7 +48,7 @@ class Creacard::Player
     @energy >= fee
   end
 
-  def get_damage(damage)
+  def get_damage(damage:)
     if @block >= damage
       @block -= damage
       return
