@@ -9,8 +9,8 @@ class Creacard::Combat
   end
 
   def begin
-    teams.each do |team|
-      team.each { |p| p.new_combat }
+    teams.each.with_index do |team, index|
+      team.each { |p| p.new_combat(self, index) }
     end
   end
 
@@ -44,34 +44,51 @@ class Creacard::Combat
         @current_player = current_team[player_index]
         next unless @current_player
 
-        @current_player.player_info
-
-        @current_player.deck_info(:hand)
-        while true
-          print('Choose the card to use: ')
-          choose = gets.to_i - 1
-
-          break if choose >= 0 && choose < @current_player.decks[:hand].size
-          puts 'Wrong choose, try again'
-        end
-
-        enemy_teams = teams.reject { |t| t == current_team }
-        enemy_index = 0
-        enemy_teams.each.with_index do |enemy_team, enemy_team_index|
-          puts "==== Team #{enemy_team_index}: #{enemy_team.size} Enemies ===="
-          enemy_team.each do |enemy|
-            puts "#{enemy_index += 1}: 血量(#{enemy.health}) 护甲(#{enemy.block})"
-          end
-        end
-        while true do
-          print('Choose the enemy to attack: ')
-          choose = gets.to_i - 1
-
-          break if choose >= 0 && choose < enemy_index
-          puts 'Wrong choose, try again'
-        end
+        puts @current_player.player_info(Creacard::Player::VIEW_TYPES_PRIVATE)
+        choose_the_card_to_use!
       end
     end
+  end
+
+  def choose_the_card_to_use!
+    puts @current_player.deck_info(:hand)
+    while true
+      print('Choose the card to use: ')
+      choose = gets.to_i - 1
+
+      if choose >= 0 && choose < @current_player.decks[:hand].size
+        begin
+          @current_player.use_the_card!(:hand, choose)
+        rescue Creacard::Player::NotEnoughFeeError
+          puts 'Not enough fee'
+        end
+      else
+        puts 'Wrong choose, try again'
+      end
+    end
+  end
+
+  def choose_the_enemy
+    enemy_teams = teams.reject { |t| t == current_team }
+    enemy_index = 0
+    enemies = []
+    enemy_teams.each.with_index do |enemy_team, enemy_team_index|
+      puts "==== Team #{enemy_team_index}: #{enemy_team.size} Enemies ===="
+      enemy_team.each do |enemy|
+        enemies << enemy
+        puts "#{enemy_index += 1}: #{enemy.player_info(Creacard::Player::VIEW_TYPES_PUBLIC)}"
+      end
+    end
+    while true do
+      print('Choose the enemy to attack: ')
+      choose = gets.to_i - 1
+
+      return enemies[choose] if choose >= 0 && choose < enemy_index
+      puts 'Wrong choose, try again'
+    end
+  end
+
+  def choose_the_friend
   end
 
   private

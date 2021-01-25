@@ -4,11 +4,8 @@ require_relative './lib/creacard'
 
 cards = Creacard::Card.load_cards('./data/cards')
 
-binding.pry
-exit
-
-player_a = Creacard::Player.new(100, Array.new(10, Creacard::StrikeCard.new))
-player_b = Creacard::Player.new(100, Array.new(10, Creacard::StrikeCard.new))
+player_a = Creacard::Player.new(40, cards.dup)
+player_b = Creacard::Player.new(100, cards.dup)
 
 combat = Creacard::Combat.new([[player_a], [player_b]])
 combat.begin

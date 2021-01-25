@@ -1,9 +1,9 @@
 class Creacard::Player
-  attr_accessor :max_health, :health, :energy, :turn_energy, :block, :draw_count
+  attr_reader :max_health, :health, :energy, :turn_energy, :block, :draw_count
 
   # :built, :unused, :hand, :used, :discarded
-  attr_accessor :decks
-  attr_accessor :combat
+  attr_reader :decks
+  attr_reader :combat, :team_index
 
   INIT_HEALTH = 100
   INIT_ENERGY = 3
@@ -11,6 +11,11 @@ class Creacard::Player
   INIT_DRAW_COUNT = 4
 
   HAND_UP_LIMIT = 10
+
+  VIEW_TYPES_PUBLIC = :public.freeze
+  VIEW_TYPES_PRIVATE = :private.freeze
+
+  class NotEnoughFeeError < StandardError; end
 
   def initialize(max_health = INIT_HEALTH, built_dect)
     @max_health = max_health
@@ -29,7 +34,9 @@ class Creacard::Player
     }
   end
 
-  def new_combat
+  def new_combat(combat, team_index)
+    @combat = combat
+    @team_index = team_index
     @decks[:unused] = @decks[:built].shuffle!
     @decks[:hand] = @decks[:unused].pop(@draw_count)
     @decks[:used] = []
@@ -59,15 +66,26 @@ class Creacard::Player
     @health -= damage
   end
 
-  def player_info
-    puts "血量: #{@health}/#{@max_health} | 能量: #{@energy} | 护甲: #{@block}"
+  def use_the_card!(deck_type, card_index)
+    raise NotEnoughFeeError unless has_energy?(@decks[deck_type][card_index].fee)
+
+    card = @decks[deck_type].delete_at(card_index)
+    @energy -= card.fee
+    card.act(self, @combat)
+  end
+
+  def player_info(view = VIEW_TYPES_PUBLIC)
+    case view
+    when VIEW_TYPES_PUBLIC
+      "血量: #{@health}/#{@max_health} | 护甲: #{@block}"
+    when VIEW_TYPES_PRIVATE
+      "血量: #{@health}/#{@max_health} | 能量: #{@energy} | 护甲: #{@block}"
+    end
   end
 
   def deck_info(deck_type)
-    @decks[deck_type].each_with_index do |card, i|
-      puts "#{i + 1}: #{card.name}"
-      puts "费用: #{card.fee} | 攻击: #{card.damage}"
-      puts "#{card.description}"
+    @decks[deck_type].map.with_index do |card, i|
+      "#{i + 1}) #{card.info}"
     end
   end
 end
