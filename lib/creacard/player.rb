@@ -92,7 +92,11 @@ class Creacard::Player
     card = @decks[deck_type].delete_at(card_index)
     @energy -= card.fee
     card.act!(self, @combat)
-    @decks[:used] << card
+    if card.discarded
+      @decks[:discarded] << card
+    else
+      @decks[:used] << card
+    end
   end
 
   def player_info

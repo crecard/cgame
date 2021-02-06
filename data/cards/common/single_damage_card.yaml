@@ -1,6 +1,7 @@
 single_damage_card:
   name: 打击
   fee: 1
+  discarded: false
   targets:
     one: enemy
   attributes:

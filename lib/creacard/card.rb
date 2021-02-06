@@ -1,7 +1,7 @@
 require 'yaml'
 
 class Creacard::Card
-  attr_reader :name, :fee, :targets, :attributes
+  attr_reader :name, :fee, :discarded, :targets, :attributes
 
   def initialize(name, fee, targets, attributes)
     @name = name
