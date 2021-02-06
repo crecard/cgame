@@ -68,6 +68,7 @@ exit: 结束游戏
   alias_method :cmd_ds, :cmd_decks
 
   def cmd_end(_)
+    @combat.current_player.end_turn!
     combat.next_player!
   end
   alias_method :cmd_e, :cmd_end

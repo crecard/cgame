@@ -8,13 +8,14 @@ class Creacard::Combat
 
   def begin!
     @teams.each do |team|
-      team.each { |p| p.new_combat(self, team) }
+      team.each { |p| p.new_combat!(self, team) }
     end
 
     @turn_num = 1
     @current_team_index = 0
     @current_player_index = 0
     @current_player = @teams[@current_team_index][@current_player_index]
+    @current_player.new_turn!
   end
 
   def info
@@ -56,6 +57,7 @@ class Creacard::Combat
     end
 
     @current_player = @teams[@current_team_index][@current_player_index]
+    @current_player.new_turn!
   end
 
   def choose_the_card_to_use!

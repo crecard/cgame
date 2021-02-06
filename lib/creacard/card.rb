@@ -10,7 +10,7 @@ class Creacard::Card
     @attributes = attributes
   end
 
-  def act(owner, combat)
+  def act!(owner, combat)
     target_choosed = {}
     @attributes.each do |attr|
       unless target_choosed[attr.target]

@@ -9,7 +9,7 @@ class Creacard::Player
   INIT_HEALTH = 100
   INIT_ENERGY = 3
   INIT_BLOCK = 0
-  INIT_DRAW_COUNT = 4
+  INIT_DRAW_COUNT = 3
 
   HAND_UP_LIMIT = 10
 
@@ -33,13 +33,31 @@ class Creacard::Player
     }
   end
 
-  def new_combat(combat, team)
+  def new_combat!(combat, team)
     @combat = combat
     @team = team
     @decks[:unused] = @decks[:built].shuffle
-    @decks[:hand] = @decks[:unused].pop(@draw_count)
+    @decks[:hand] = []
     @decks[:used] = []
     @decks[:discarded] = []
+  end
+
+  def new_turn!
+    @energy = @turn_energy
+
+    need_draw = @draw_count
+    while need_draw > 0 do
+      if @decks[:unused].empty?
+        break if @decks[:used].empty?
+        @decks[:unused] = @decks[:used].shuffle
+        @decks[:used] = []
+      end
+      @decks[:hand] = @decks[:unused].pop(@draw_count)
+      need_draw -= 1
+    end
+  end
+
+  def end_turn!
   end
 
   def is_dead?
@@ -73,7 +91,8 @@ class Creacard::Player
 
     card = @decks[deck_type].delete_at(card_index)
     @energy -= card.fee
-    card.act(self, @combat)
+    card.act!(self, @combat)
+    @decks[:used] << card
   end
 
   def player_info
