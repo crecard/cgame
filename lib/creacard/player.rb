@@ -1,9 +1,10 @@
 class Creacard::Player
+  attr_reader :name
   attr_reader :max_health, :health, :energy, :turn_energy, :block, :draw_count
 
   # :built, :unused, :hand, :used, :discarded
   attr_reader :decks
-  attr_reader :combat, :team_index
+  attr_reader :combat, :team
 
   INIT_HEALTH = 100
   INIT_ENERGY = 3
@@ -17,7 +18,8 @@ class Creacard::Player
 
   class NotEnoughFeeError < StandardError; end
 
-  def initialize(max_health = INIT_HEALTH, built_dect)
+  def initialize(name = "someone #{rand(4)}",max_health = INIT_HEALTH, built_dect)
+    @name = name
     @max_health = max_health
     @health = @max_health
     @turn_energy = INIT_ENERGY
@@ -34,9 +36,9 @@ class Creacard::Player
     }
   end
 
-  def new_combat(combat, team_index)
+  def new_combat(combat, team)
     @combat = combat
-    @team_index = team_index
+    @team = team
     @decks[:unused] = @decks[:built].shuffle!
     @decks[:hand] = @decks[:unused].pop(@draw_count)
     @decks[:used] = []
@@ -55,15 +57,18 @@ class Creacard::Player
     @energy >= fee
   end
 
-  def get_damage(damage:)
+  def get_damage!(damage:)
     if @block >= damage
       @block -= damage
+      puts "#{name} 护甲减少 #{damage}"
       return
     end
 
+    puts "#{name} 护甲减少 #{@block}" if @block > 0
     damage -= @block
     @block = 0
     @health -= damage
+    puts "#{name} 生命减少 #{damage}"
   end
 
   def use_the_card!(deck_type, card_index)

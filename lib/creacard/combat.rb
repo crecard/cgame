@@ -9,8 +9,8 @@ class Creacard::Combat
   end
 
   def begin
-    teams.each.with_index do |team, index|
-      team.each { |p| p.new_combat(self, index) }
+    teams.each do |team|
+      team.each { |p| p.new_combat(self, team) }
     end
   end
 
@@ -68,8 +68,8 @@ class Creacard::Combat
     end
   end
 
-  def choose_the_enemy
-    enemy_teams = teams.reject { |t| t == current_team }
+  def choose_the_enemy(owner)
+    enemy_teams = teams.reject { |t| t == owner.team }
     enemy_index = 0
     enemies = []
     enemy_teams.each.with_index do |enemy_team, enemy_team_index|

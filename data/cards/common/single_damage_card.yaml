@@ -5,6 +5,6 @@ single_damage_card:
     one: enemy
   attributes:
   - damage:
-      target_type: enemy_single
+      target_type: single
       target: one
       value: 5

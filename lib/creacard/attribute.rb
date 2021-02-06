@@ -46,10 +46,10 @@ class Creacard::DamageAttribute < Creacard::Attribute
     "造成 #{@value} 点伤害"
   end
 
-  def act(players: [])
+  def act!(players: [])
     case @target_type
     when 'single'
-      players[0].get_damage(damage: @value)
+      players[0].get_damage!(damage: @value)
     end
   end
 end

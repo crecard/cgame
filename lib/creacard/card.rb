@@ -14,9 +14,16 @@ class Creacard::Card
     target_choosed = {}
     @attributes.each do |attr|
       unless target_choosed[attr.target]
-
+        target = choose_target(@targets[attr.target], owner, combat)
+        target_choosed[attr.target] = target
       end
+
+      attr.act!(players: [target_choosed[attr.target]])
     end
+  end
+
+  def choose_target(target_type, owner, combat)
+    combat.public_send("choose_the_#{target_type}".to_sym, owner)
   end
 
   def description
