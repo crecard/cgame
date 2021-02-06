@@ -42,6 +42,20 @@ class Creacard::Combat
     teams_dead.index(false)
   end
 
+  def check_winner!
+    winner = who_is_winner?
+    case winner
+    when :draw
+      puts "==== 平局还是 bug？ ===="
+      exit
+    when :not_end
+      return
+    else
+      puts "!!!! Team #{winner} is winner! ===="
+      exit
+    end
+  end
+
   def next_player!
     if @current_player_index + 1 >= @teams[@current_team_index].size
       if @current_team_index + 1 >= @teams.size
@@ -71,6 +85,8 @@ class Creacard::Combat
       if choose >= 0 && choose < @current_player.decks[:hand].size
         begin
           @current_player.use_the_card!(:hand, choose)
+          check_winner!
+
           return
         rescue Creacard::Player::NotEnoughFeeError
           puts 'Not enough fee'
