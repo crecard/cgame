@@ -1,0 +1,7 @@
+tzwm_2:
+  name: tzwm_2
+  max_health: 10
+  turn_energy: 3
+  draw_count: 3
+  deck_built:
+    single_damage_card: 2

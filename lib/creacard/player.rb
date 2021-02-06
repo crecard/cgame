@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Creacard::Player
   attr_reader :name
   attr_reader :max_health, :health, :energy, :turn_energy, :block, :draw_count
@@ -15,17 +17,17 @@ class Creacard::Player
 
   class NotEnoughFeeError < StandardError; end
 
-  def initialize(name = "someone #{rand(4)}", max_health = INIT_HEALTH, built_dect)
+  def initialize(name, max_health, turn_energy, draw_count, deck_built)
     @name = name
     @max_health = max_health
     @health = @max_health
-    @turn_energy = INIT_ENERGY
+    @turn_energy = turn_energy
     @energy = @turn_energy
     @block = INIT_BLOCK
-    @draw_count = INIT_DRAW_COUNT
+    @draw_count = draw_count
 
     @decks = {
-      built: built_dect,
+      built: deck_built,
       unused: [],
       hand: [],
       used: [],
@@ -106,6 +108,24 @@ class Creacard::Player
   def deck_info(deck_type)
     @decks[deck_type.to_sym].map.with_index do |card, i|
       "#{i + 1}) #{card.info}"
+    end
+  end
+
+  class << self
+    def load_player(name)
+      player_data = YAML.load(File.read("./data/players/#{name}.yaml"))
+
+      player_data = player_data[player_data.keys[0]]
+      deck_built = player_data['deck_built'].map do |card_key, count|
+        Array.new(count, $card_pool[card_key])
+      end.flatten
+      Creacard::Player.new(
+        player_data['name'],
+        player_data['max_health'],
+        player_data['turn_energy'],
+        player_data['draw_count'],
+        deck_built
+      )
     end
   end
 end

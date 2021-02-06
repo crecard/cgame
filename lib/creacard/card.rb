@@ -1,9 +1,10 @@
 require 'yaml'
 
 class Creacard::Card
-  attr_reader :name, :fee, :discarded, :targets, :attributes
+  attr_reader :key, :name, :fee, :discarded, :targets, :attributes
 
-  def initialize(name, fee, targets, attributes)
+  def initialize(key, name, fee, targets, attributes)
+    @key = key
     @name = name
     @fee = fee
     @targets = targets
@@ -38,16 +39,18 @@ class Creacard::Card
   end
 
   class << self
-    def load_cards(path)
+    def load_all_cards(path)
       files = Dir.glob('**/*.yaml', base: path)
       card_data = files.map do |f|
         d = YAML.load(File.read(File.join(path, f)))
       end
 
       cards = card_data.map do |c|
-        data = c[c.keys[0]]
+        key = c.keys[0]
+        data = c[key]
         attributes = Creacard::Attribute.load_attributes(data['attributes'])
         Creacard::Card.new(
+          key,
           data['name'],
           data['fee'],
           data['targets'],
@@ -55,7 +58,7 @@ class Creacard::Card
         )
       end
 
-      cards
+      cards.to_h { |c| [c.key, c] }
     end
   end
 end

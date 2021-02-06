@@ -21,9 +21,8 @@ class Creacard::Combat
   def info
     puts "回合数: #{@turn_num}"
     teams.each_with_index do |team, i|
-      puts "======= Team #{i} ========="
+      puts "======= Team #{i + 1} ========="
       team.each_with_index do |player, j|
-        puts "======== Player #{j} ========"
         puts player.player_info
         puts "\n"
       end
