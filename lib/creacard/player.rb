@@ -13,12 +13,9 @@ class Creacard::Player
 
   HAND_UP_LIMIT = 10
 
-  VIEW_TYPES_PUBLIC = :public.freeze
-  VIEW_TYPES_PRIVATE = :private.freeze
-
   class NotEnoughFeeError < StandardError; end
 
-  def initialize(name = "someone #{rand(4)}",max_health = INIT_HEALTH, built_dect)
+  def initialize(name = "someone #{rand(4)}", max_health = INIT_HEALTH, built_dect)
     @name = name
     @max_health = max_health
     @health = @max_health
@@ -39,7 +36,7 @@ class Creacard::Player
   def new_combat(combat, team)
     @combat = combat
     @team = team
-    @decks[:unused] = @decks[:built].shuffle!
+    @decks[:unused] = @decks[:built].shuffle
     @decks[:hand] = @decks[:unused].pop(@draw_count)
     @decks[:used] = []
     @decks[:discarded] = []
@@ -79,17 +76,12 @@ class Creacard::Player
     card.act(self, @combat)
   end
 
-  def player_info(view = VIEW_TYPES_PUBLIC)
-    case view
-    when VIEW_TYPES_PUBLIC
-      "血量: #{@health}/#{@max_health} | 护甲: #{@block}"
-    when VIEW_TYPES_PRIVATE
-      "血量: #{@health}/#{@max_health} | 能量: #{@energy} | 护甲: #{@block}"
-    end
+  def player_info
+    "Player #{@name}\n血量: #{@health}/#{@max_health} | 能量: #{@energy} | 护甲: #{@block} | 手牌数: #{@decks[:hand].count}"
   end
 
   def deck_info(deck_type)
-    @decks[deck_type].map.with_index do |card, i|
+    @decks[deck_type.to_sym].map.with_index do |card, i|
       "#{i + 1}) #{card.info}"
     end
   end

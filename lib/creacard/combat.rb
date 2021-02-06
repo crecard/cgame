@@ -1,17 +1,20 @@
 class Creacard::Combat
   attr_accessor :teams
-  attr_reader :turn_num
+  attr_reader :turn_num, :current_player, :current_team_index, :current_player_index
 
   def initialize(teams)
     @teams = teams
-
-    @turn_num = 0
   end
 
-  def begin
-    teams.each do |team|
+  def begin!
+    @teams.each do |team|
       team.each { |p| p.new_combat(self, team) }
     end
+
+    @turn_num = 1
+    @current_team_index = 0
+    @current_player_index = 0
+    @current_player = @teams[@current_team_index][@current_player_index]
   end
 
   def info
@@ -20,11 +23,12 @@ class Creacard::Combat
       puts "======= Team #{i} ========="
       team.each_with_index do |player, j|
         puts "======== Player #{j} ========"
-        player.player_info
-        player.deck_info(:built)
-        puts ' '
+        puts player.player_info
+        puts "\n"
       end
     end
+
+    nil
   end
 
   # return :not_end, :draw, :index_of_winner
@@ -37,28 +41,35 @@ class Creacard::Combat
     teams_dead.index(false)
   end
 
-  def new_turn
-    queue = []
-    teams.map(&:size).max.times do |player_index|
-      teams.each do |current_team|
-        @current_player = current_team[player_index]
-        next unless @current_player
-
-        puts @current_player.player_info(Creacard::Player::VIEW_TYPES_PRIVATE)
-        choose_the_card_to_use!
+  def next_player!
+    if @current_player_index + 1 >= @teams[@current_team_index].size
+      if @current_team_index + 1 >= @teams.size
+        @turn_num += 1
+        @current_team_index = 0
+        @current_player_index = 0
+      else
+        @current_team_index += 1
+        @current_player_index = 0
       end
+    else
+      @current_player_index += 1
     end
+
+    @current_player = @teams[@current_team_index][@current_player_index]
   end
 
   def choose_the_card_to_use!
     puts @current_player.deck_info(:hand)
     while true
       print('Choose the card to use: ')
-      choose = gets.to_i - 1
+      choose = gets.strip
+      return if choose == 'exit'
 
+      choose = choose.to_i - 1
       if choose >= 0 && choose < @current_player.decks[:hand].size
         begin
           @current_player.use_the_card!(:hand, choose)
+          return
         rescue Creacard::Player::NotEnoughFeeError
           puts 'Not enough fee'
         end
@@ -76,7 +87,7 @@ class Creacard::Combat
       puts "==== Team #{enemy_team_index}: #{enemy_team.size} Enemies ===="
       enemy_team.each do |enemy|
         enemies << enemy
-        puts "#{enemy_index += 1}: #{enemy.player_info(Creacard::Player::VIEW_TYPES_PUBLIC)}"
+        puts "#{enemy_index += 1}: #{enemy.player_info}"
       end
     end
     while true do

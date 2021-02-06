@@ -8,10 +8,7 @@ player_a = Creacard::Player.new('A', 40, cards.dup)
 player_b = Creacard::Player.new('B', 100, cards.dup)
 
 combat = Creacard::Combat.new([[player_a], [player_b]])
-combat.begin
+combat.begin!
 
-#combat.info
-
-while combat.who_is_winner? == :not_end do
-  combat.new_turn
-end
+controller = Creacard::Controller.new(combat)
+controller.begin!
