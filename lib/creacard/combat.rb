@@ -15,6 +15,7 @@ class Creacard::Combat
     @current_team_index = 0
     @current_player_index = 0
     @current_player = @teams[@current_team_index][@current_player_index]
+    system('clear')
     @current_player.new_turn!
   end
 
@@ -56,6 +57,8 @@ class Creacard::Combat
   end
 
   def next_player!
+    system('clear')
+
     if @current_player_index + 1 >= @teams[@current_team_index].size
       if @current_team_index + 1 >= @teams.size
         @turn_num += 1
