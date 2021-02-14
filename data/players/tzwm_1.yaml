@@ -4,5 +4,5 @@ tzwm_1:
   turn_energy: 3
   draw_count: 3
   deck_built:
-    strike: 4
-    defend: 4
+    bash: 4
+    #defend: 4

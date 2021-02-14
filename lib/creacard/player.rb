@@ -1,10 +1,10 @@
 require 'yaml'
 
 class Creacard::Player
-  attr_reader :name
-  attr_reader :max_health, :health, :energy, :turn_energy, :block, :draw_count
+  attr_reader :name, :max_health, :turn_energy, :draw_count
+  attr_reader :health, :energy, :block, :statuses
 
-  # :built, :unused, :hand, :used, :discarded
+  # :built, :unused, :hand, :used, :discarded, :hang
   attr_reader :decks
   attr_reader :combat, :team
 
@@ -17,7 +17,7 @@ class Creacard::Player
 
   class NotEnoughFeeError < StandardError; end
 
-  def initialize(name, max_health, turn_energy, draw_count, deck_built)
+  def initialize(name, max_health, turn_energy, draw_count, deck_built, statuses = {})
     @name = name
     @max_health = max_health
     @health = @max_health
@@ -33,6 +33,8 @@ class Creacard::Player
       used: [],
       discarded: [],
     }
+
+    @statuses = statuses
   end
 
   def new_combat!(combat, team)
@@ -54,7 +56,7 @@ class Creacard::Player
         @decks[:unused] = @decks[:used].shuffle
         @decks[:used] = []
       end
-      @decks[:hand] = @decks[:unused].pop(@draw_count)
+      @decks[:hand] << @decks[:unused].pop
       need_draw -= 1
     end
   end
@@ -75,6 +77,13 @@ class Creacard::Player
   end
 
   def get_damage!(damage:)
+    before_damage = damage
+    damage = status_pipeline(
+      damage: before_damage,
+      block: 0,
+      fee: 0
+    )[:damage]
+
     if @block >= damage
       @block -= damage
       puts "#{name} 护甲减少 #{damage}"
@@ -93,6 +102,28 @@ class Creacard::Player
     puts "#{name} 护甲增加 #{block}"
   end
 
+  def status_pipeline(damage:, block:, fee:)
+    piped_damage = damage
+    piped_block = block
+    piped_fee = fee
+    @statuses.each do |status_class, status|
+      piped_data = status.pip(
+        damage: piped_damage,
+        block: piped_block,
+        fee: piped_fee
+      )
+      piped_damage = piped_data[:damage]
+      piped_block = piped_data[:block]
+      piped_fee = piped_data[:fee]
+    end
+
+    {
+      damage: piped_damage,
+      block: piped_block,
+      fee: piped_fee
+    }
+  end
+
   def use_the_card!(deck_type, card_index)
     raise NotEnoughFeeError unless has_energy?(@decks[deck_type][card_index].fee)
 
@@ -104,6 +135,25 @@ class Creacard::Player
     else
       @decks[:used] << card
     end
+  end
+
+  def update_status!(status_class, count, hung_card = nil)
+    if @statuses[status_class]
+      @statuses[status_class].change_count!(
+        change: count,
+        hung_card: hung_card
+      )
+    else
+      @statuses[status_class] = status_class.new(
+        owner: self,
+        count: count,
+        hung_card: hung_card
+      )
+    end
+  end
+
+  def cancel_status!(status)
+    @statuses.delete(status)
   end
 
   def player_info

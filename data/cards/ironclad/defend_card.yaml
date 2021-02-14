@@ -3,9 +3,9 @@ defend:
   fee: 1
   discarded: false
   targets:
-    myself: myself
+    one: myself
   attributes:
   - block:
       target_range: single
-      target: myself
+      target: one
       value: 5

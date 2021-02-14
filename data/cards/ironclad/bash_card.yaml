@@ -1,0 +1,15 @@
+bash:
+  name: Bash
+  fee: 2
+  discarded: false
+  targets:
+    one: enemy
+  attributes:
+  - damage:
+      target_range: single
+      target: one
+      value: 8
+  - vulnerable:
+      target_range: single
+      target: one
+      value: 2
