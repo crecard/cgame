@@ -119,6 +119,10 @@ class Creacard::Combat
     end
   end
 
+  def choose_the_myself(owner)
+    owner
+  end
+
   def choose_the_friend
   end
 

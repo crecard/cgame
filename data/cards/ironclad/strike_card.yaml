@@ -1,4 +1,4 @@
-single_damage:
+strike:
   name: 打击
   fee: 1
   discarded: false

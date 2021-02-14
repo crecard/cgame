@@ -88,6 +88,11 @@ class Creacard::Player
     puts "#{name} 生命减少 #{damage}"
   end
 
+  def get_block!(block:)
+    @block += block
+    puts "#{name} 护甲增加 #{block}"
+  end
+
   def use_the_card!(deck_type, card_index)
     raise NotEnoughFeeError unless has_energy?(@decks[deck_type][card_index].fee)
 

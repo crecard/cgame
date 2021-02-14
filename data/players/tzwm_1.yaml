@@ -4,4 +4,5 @@ tzwm_1:
   turn_energy: 3
   draw_count: 3
   deck_built:
-    single_damage_card: 10
+    strike: 4
+    defend: 4

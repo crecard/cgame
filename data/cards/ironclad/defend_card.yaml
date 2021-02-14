@@ -1,11 +1,11 @@
-single_damage:
-  name: 打击
+defend:
+  name: 防御
   fee: 1
   discarded: false
   targets:
-    one: enemy
+    myself: myself
   attributes:
-  - damage:
+  - block:
       target_range: single
-      target: one
+      target: myself
       value: 5
