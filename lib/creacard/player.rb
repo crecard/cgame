@@ -62,6 +62,9 @@ class Creacard::Player
   end
 
   def end_turn!
+    @statuses.each do |status_class, status|
+      status.end_turn_act!
+    end
   end
 
   def is_dead?

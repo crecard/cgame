@@ -7,7 +7,7 @@ class Creacard::Status
     @hung_cards = [hung_card].compact
   end
 
-  def change_count!(change:, hung_card:)
+  def change_count!(change:, hung_card: nil)
     @count += change.to_i
     @hung_cards << hung_card if hung_card
 
@@ -15,7 +15,7 @@ class Creacard::Status
   end
 
   def cancel!
-    owner.cancel_status!(self)
+    owner.cancel_status!(self.class)
     #TODO: return hung cards
   end
 end
