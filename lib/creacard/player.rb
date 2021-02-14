@@ -166,6 +166,12 @@ class Creacard::Player
     end
   end
 
+  def statuses_info
+    @statuses.map do |status_class, status|
+      "#{status_class.name}: #{status.count}"
+    end
+  end
+
   class << self
     def load_player(name)
       player_data = YAML.load(File.read("./data/players/#{name}.yaml"))

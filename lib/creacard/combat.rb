@@ -25,6 +25,7 @@ class Creacard::Combat
       puts "======= Team #{i + 1} ========="
       team.each_with_index do |player, j|
         puts player.player_info
+        puts player.statuses_info
         puts "\n"
       end
     end
