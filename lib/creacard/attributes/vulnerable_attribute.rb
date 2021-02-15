@@ -3,10 +3,10 @@ class Creacard::VulnerableAttribute < Creacard::Attribute
     "增加 #{@value} 点 #{Creacard::VulnerableStatus.name}"
   end
 
-  def act!(players: [])
+  def act!(owner:, targets: [])
     case @target_range
     when :single
-      players[0].update_status!(Creacard::VulnerableStatus, @value, nil)
+      targets[0].update_status!(Creacard::VulnerableStatus, @value, nil)
     end
   end
 end

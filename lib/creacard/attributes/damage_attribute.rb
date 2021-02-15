@@ -4,10 +4,10 @@ class Creacard::DamageAttribute < Creacard::Attribute
     "造成 #{@value} 点伤害"
   end
 
-  def act!(players: [])
+  def act!(owner:, targets: [])
     case @target_range
     when :single
-      players[0].get_damage!(damage: @value)
+      targets[0].get_damage!(damage: value(owner))
     end
   end
 end

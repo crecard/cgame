@@ -19,7 +19,10 @@ class Creacard::Card
         target_choosed[attr.target] = target
       end
 
-      attr.act!(players: [target_choosed[attr.target]])
+      attr.act!(
+        owner: owner,
+        targets: [target_choosed[attr.target]]
+      )
     end
   end
 

@@ -181,7 +181,7 @@ class Creacard::Player
 
       player_data = player_data[player_data.keys[0]]
       deck_built = player_data['deck_built'].map do |card_key, count|
-        Array.new(count, $card_pool[card_key])
+        count.times.map { $card_pool[card_key].clone }
       end.flatten
       Creacard::Player.new(
         player_data['name'],

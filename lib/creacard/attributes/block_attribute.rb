@@ -4,10 +4,10 @@ class Creacard::BlockAttribute < Creacard::Attribute
     "增加 #{@value} 点护甲"
   end
 
-  def act!(players: [])
+  def act!(owner:, targets: [])
     case @target_range
     when :single
-      players[0].get_block!(block: @value)
+      targets[0].get_block!(block: value(owner))
     end
   end
 end

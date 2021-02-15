@@ -1,0 +1,12 @@
+body_slam:
+  name: Body Slam
+  fee: 1
+  discarded: false
+  targets:
+    one: enemy
+  attributes:
+  - damage:
+      target_range: single
+      target: one
+      value_type: variable
+      value: block
