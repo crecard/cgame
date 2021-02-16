@@ -1,9 +1,9 @@
 class Creacard::VulnerableStatus < Creacard::Status
-  def pip(damage:, block:, fee:)
+  def in_pipe(damage:, block:, fee:)
     {
       damage: (damage.to_i * 1.5).floor,
-      block: block.to_i,
-      fee: fee.to_i
+      block: block,
+      fee: fee
     }
   end
 

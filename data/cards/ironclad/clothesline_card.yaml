@@ -1,0 +1,15 @@
+clothesline:
+  name: Clothesline
+  fee: 2
+  discarded: false
+  targets:
+    one: enemy
+  attributes:
+  - damage:
+      target_range: single
+      target: one
+      value: 12
+  - weak:
+      target_range: single
+      target: one
+      value: 2

@@ -5,9 +5,11 @@ class Creacard::DamageAttribute < Creacard::Attribute
   end
 
   def act!(owner:, targets: [])
+    damage = owner.make_damage(damage: value(owner))
+
     case @target_range
     when :single
-      targets[0].get_damage!(damage: value(owner))
+      targets[0].get_damage!(damage: damage)
     end
   end
 end

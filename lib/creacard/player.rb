@@ -82,12 +82,13 @@ class Creacard::Player
   def get_damage!(damage:)
     before_damage = damage
     damage = status_pipeline(
+      pipe_type: :in,
       damage: before_damage,
       block: 0,
       fee: 0
     )[:damage]
 
-    if @block >= damage
+    if @block > damage
       @block -= damage
       puts "#{name} 护甲减少 #{damage}"
       return
@@ -105,12 +106,26 @@ class Creacard::Player
     puts "#{name} 护甲增加 #{block}"
   end
 
-  def status_pipeline(damage:, block:, fee:)
+  def make_damage(damage:)
+    before_damage = damage
+    damage = status_pipeline(
+      pipe_type: :out,
+      damage: before_damage,
+      block: 0,
+      fee: 0
+    )[:damage]
+
+    damage = 0 if damage < 0
+
+    damage
+  end
+
+  def status_pipeline(pipe_type:, damage:, block:, fee:)
     piped_damage = damage
     piped_block = block
     piped_fee = fee
     @statuses.each do |status_class, status|
-      piped_data = status.pip(
+      piped_data = status.public_send("#{pipe_type}_pipe",
         damage: piped_damage,
         block: piped_block,
         fee: piped_fee

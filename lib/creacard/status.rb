@@ -1,4 +1,9 @@
 class Creacard::Status
+  PIPE_TYPE = [
+    :in,
+    :out
+  ]
+
   attr_reader :owner, :count, :hung_cards
 
   def initialize(owner:, count:, hung_card:)
@@ -17,5 +22,21 @@ class Creacard::Status
   def cancel!
     owner.cancel_status!(self.class)
     #TODO: return hung cards
+  end
+
+  def out_pipe(damage:, block:, fee:)
+    {
+      damage: damage,
+      block: block,
+      fee: fee
+    }
+  end
+
+  def in_pipe(damage:, block:, fee:)
+    {
+      damage: damage,
+      block: block,
+      fee: fee
+    }
   end
 end
