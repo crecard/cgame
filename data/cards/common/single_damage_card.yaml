@@ -1,7 +1,7 @@
 single_damage:
   name: 打击
   fee: 1
-  discarded: false
+  exhaust: false
   targets:
     one: enemy
   attributes:

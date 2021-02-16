@@ -1,7 +1,7 @@
 defend:
   name: 防御
   fee: 1
-  discarded: false
+  exhaust: false
   targets:
     one: myself
   attributes:

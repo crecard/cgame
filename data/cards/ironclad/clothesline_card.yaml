@@ -1,7 +1,7 @@
 clothesline:
   name: Clothesline
   fee: 2
-  discarded: false
+  exhaust: false
   targets:
     one: enemy
   attributes:

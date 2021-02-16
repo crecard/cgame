@@ -39,7 +39,7 @@ class Creacard::Controller
 h, help: 帮助信息
 cb, combat: 查看当前战场
 hd, hand_deck: 查看和使用手牌
-ds, decks + type: 查看牌堆，built - 构筑，unused 未使用牌，hand 手牌，used 使用，discarded 废弃
+ds, decks + type: 查看牌堆，built - 构筑，unused 未使用牌，hand 手牌，used 使用，exhausted 废弃
 e, end: 结束当前回合
 exit: 结束游戏
     INFO

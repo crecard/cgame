@@ -4,7 +4,7 @@ class Creacard::Player
   attr_reader :name, :max_health, :turn_energy, :draw_count
   attr_reader :health, :energy, :block, :statuses
 
-  # :built, :unused, :hand, :used, :discarded, :hang
+  # :built, :unused, :hand, :used, :exhausted, :hang
   attr_reader :decks
   attr_reader :combat, :team
 
@@ -31,7 +31,7 @@ class Creacard::Player
       unused: [],
       hand: [],
       used: [],
-      discarded: [],
+      exhausted: [],
     }
 
     @statuses = statuses
@@ -43,7 +43,7 @@ class Creacard::Player
     @decks[:unused] = @decks[:built].shuffle
     @decks[:hand] = []
     @decks[:used] = []
-    @decks[:discarded] = []
+    @decks[:exhausted] = []
   end
 
   def new_turn!
@@ -148,8 +148,8 @@ class Creacard::Player
     card = @decks[deck_type].delete_at(card_index)
     @energy -= card.fee
     card.act!(self, @combat)
-    if card.discarded
-      @decks[:discarded] << card
+    if card.exhaust
+      @decks[:exhausted] << card
     else
       @decks[:used] << card
     end

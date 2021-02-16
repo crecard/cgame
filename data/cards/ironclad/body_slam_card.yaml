@@ -1,7 +1,7 @@
 body_slam:
   name: Body Slam
   fee: 1
-  discarded: false
+  exhaust: false
   targets:
     one: enemy
   attributes:
