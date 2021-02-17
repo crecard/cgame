@@ -1,0 +1,11 @@
+barricade:
+  name: Barricade
+  fee: 3
+  exhaust: true
+  targets:
+    one: myself
+  attributes:
+  - barricade:
+      target_range: single
+      target: one
+      value: 1
