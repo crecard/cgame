@@ -111,6 +111,16 @@ class Creacard::Player
     puts "#{name} 护甲增加 #{block}"
   end
 
+  def get_energy!(energy:)
+    @energy += energy
+    puts "#{name} 能量增加 #{energy}"
+  end
+
+  def get_health!(health:)
+    @health += health
+    puts "#{name} 生命增加 #{health}"
+  end
+
   def make_damage(damage:)
     before_damage = damage
     damage = status_pipeline(

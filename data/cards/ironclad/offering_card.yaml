@@ -1,0 +1,19 @@
+offering:
+  name: Offering
+  fee: 0
+  exhaust: true
+  targets:
+    one: myself
+  attributes:
+  - health:
+      target_range: single
+      target: one
+      value: -6
+  - energy:
+      target_range: single
+      target: one
+      value: 2
+  - draw_card:
+      target_range: single
+      target: one
+      value: 3
