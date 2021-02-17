@@ -1,15 +1,15 @@
-shrug_it_off:
-  name: Shrug it Off
-  fee: 1
+battle_trance:
+  name: Battle Trance
+  fee: 0
   exhaust: false
   targets:
     one: myself
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value: 8
   - draw_card:
       target_range: single
       target: one
-      value: 1
+      value: 3
+  - cannot_draw_this_turn:
+      target_range: single
+      target: one
+      value: null

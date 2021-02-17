@@ -8,7 +8,7 @@ class Creacard::Player
   attr_reader :decks
   attr_reader :combat, :team
 
-  attr_accessor :is_block_expire
+  attr_accessor :is_block_expire, :can_draw_this_turn
 
   INIT_HEALTH = 100
   INIT_ENERGY = 3
@@ -49,7 +49,10 @@ class Creacard::Player
   end
 
   def new_turn!
+    # init
     @is_block_expire = true
+    @can_draw_this_turn = true
+
     @statuses.each do |status_class, status|
       status.new_turn_act!(owner: self)
     end
@@ -122,6 +125,8 @@ class Creacard::Player
   end
 
   def draw_cards!(count:)
+    return unless @can_draw_this_turn
+
     while count > 0 do
       if @decks[:unused].empty?
         if @decks[:used].empty?
