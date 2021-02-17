@@ -1,0 +1,16 @@
+iron_wave:
+  name: Iron Wave
+  fee: 1
+  exhaust: false
+  targets:
+    one: myself
+    two: enemy
+  attributes:
+  - block:
+      target_range: single
+      target: one
+      value: 5
+  - damage:
+      target_range: single
+      target: two
+      value: 5
