@@ -8,7 +8,7 @@ class Creacard::Controller
     ds decks
     cd card
     e end
-    exit
+    quit
   )
 
   def initialize(combat)
@@ -16,7 +16,10 @@ class Creacard::Controller
   end
 
   def begin!
+    cmd_help(nil)
+
     while true do
+      cmd_combat(nil)
       cmd, arg = get_root_cmd
 
       public_send("cmd_#{cmd}", arg)
@@ -41,7 +44,7 @@ cb, combat: 查看当前战场
 hd, hand_deck: 查看和使用手牌
 ds, decks + type: 查看牌堆，built - 构筑，unused 未使用牌，hand 手牌，used 使用，exhausted 废弃
 e, end: 结束当前回合
-exit: 结束游戏
+quit: 结束游戏\n
     INFO
   end
   alias_method :cmd_h, :cmd_help
@@ -70,10 +73,11 @@ exit: 结束游戏
   def cmd_end(_)
     @combat.current_player.end_turn!
     combat.next_player!
+    system('clear')
   end
   alias_method :cmd_e, :cmd_end
 
-  def cmd_exit(_)
+  def cmd_quit(_)
     exit
   end
 end

@@ -58,8 +58,6 @@ class Creacard::Combat
   end
 
   def next_player!
-    system('clear')
-
     if @current_player_index + 1 >= @teams[@current_team_index].size
       if @current_team_index + 1 >= @teams.size
         @turn_num += 1
