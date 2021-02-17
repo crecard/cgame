@@ -1,0 +1,16 @@
+defend_ironclad_1:
+  name: tzwm
+  max_health: 80
+  turn_energy: 3
+  draw_count: 3
+  deck_built:
+    body_slam: 3
+    iron_wave: 2
+    shrug_it_off: 3
+    entrench: 1
+    barricade: 1
+    defend: 3
+    battle_trance: 1
+    metallicize: 1
+    flame_barrier: 2
+    ghostly_armor: 3

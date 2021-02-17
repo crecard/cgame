@@ -226,7 +226,7 @@ class Creacard::Player
 
   class << self
     def load_player(name)
-      player_data = YAML.load(File.read("./data/players/#{name}.yaml"))
+      player_data = YAML.load(File.read("./data/players/#{name}_player.yaml"))
 
       player_data = player_data[player_data.keys[0]]
       deck_built = player_data['deck_built'].map do |card_key, count|
