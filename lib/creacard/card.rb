@@ -3,10 +3,11 @@ require 'yaml'
 class Creacard::Card
   attr_reader :key, :name, :fee, :exhaust, :targets, :attributes
 
-  def initialize(key, name, fee, targets, attributes)
+  def initialize(key, name, fee, exhaust, targets, attributes)
     @key = key
     @name = name
     @fee = fee
+    @exhaust = exhaust
     @targets = targets
     @attributes = attributes
   end
@@ -56,6 +57,7 @@ class Creacard::Card
           key,
           data['name'],
           data['fee'],
+          data['exhaust'],
           data['targets'],
           attributes
         )

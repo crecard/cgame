@@ -1,0 +1,11 @@
+ghostly_armor:
+  name: Ghostly Armor
+  fee: 1
+  exhaust: true
+  targets:
+    one: myself
+  attributes:
+  - block:
+      target_range: single
+      target: one
+      value: 10
