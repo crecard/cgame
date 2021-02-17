@@ -4,11 +4,12 @@ tzwm_1:
   turn_energy: 3
   draw_count: 3
   deck_built:
-    metallicize: 100
-    shrug_it_off: 10
-    barricade: 10
-    ghostly_armor: 10
-    defend: 10
+    flame_barrier: 10
+    metallicize: 1
+    shrug_it_off: 1
+    barricade: 1
+    ghostly_armor: 1
+    defend: 1
     bash: 1
     body_slam: 1
     clothesline: 1

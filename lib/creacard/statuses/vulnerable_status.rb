@@ -1,5 +1,5 @@
 class Creacard::VulnerableStatus < Creacard::Status
-  def in_pipe(damage:, block:, fee:)
+  def in_pipe!(damage:, block:, fee:)
     {
       damage: (damage.to_i * 1.5).floor,
       block: block,
@@ -7,7 +7,7 @@ class Creacard::VulnerableStatus < Creacard::Status
     }
   end
 
-  def end_turn_act!(owner:)
+  def end_turn_act!
     change_count!(change: -1)
   end
 

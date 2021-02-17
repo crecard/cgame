@@ -9,7 +9,10 @@ class Creacard::DamageAttribute < Creacard::Attribute
 
     case @target_range
     when :single
-      targets[0].get_damage!(damage: damage)
+      targets[0].get_damage!(
+        damage: damage,
+        attacker: owner
+      )
     end
   end
 end

@@ -1,6 +1,6 @@
 class Creacard::MetallicizeStatus < Creacard::Status
-  def end_turn_act!(owner:)
-    owner.get_block!(block: count)
+  def end_turn_act!
+    @owner.get_block!(block: count)
   end
 
   class << self

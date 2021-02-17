@@ -1,0 +1,15 @@
+flame_barrier:
+  name: Flame Barrier
+  fee: 2
+  exhaust: false
+  targets:
+    one: myself
+  attributes:
+  - block:
+      target_range: single
+      target: one
+      value: 12
+  - flame_barrier:
+      target_range: single
+      target: one
+      value: 4

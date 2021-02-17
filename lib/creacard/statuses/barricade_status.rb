@@ -1,6 +1,6 @@
 class Creacard::BarricadeStatus < Creacard::Status
-  def new_turn_act!(owner:)
-    owner.is_block_expire = false
+  def new_turn_act!
+    @owner.is_block_expire = false
   end
 
   class << self

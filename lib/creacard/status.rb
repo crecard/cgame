@@ -20,11 +20,11 @@ class Creacard::Status
   end
 
   def cancel!
-    owner.cancel_status!(self.class)
+    @owner.cancel_status!(self.class)
     #TODO: return hung cards
   end
 
-  def out_pipe(damage:, block:, fee:)
+  def out_pipe!(damage:, block:, fee:, args:)
     {
       damage: damage,
       block: block,
@@ -32,7 +32,7 @@ class Creacard::Status
     }
   end
 
-  def in_pipe(damage:, block:, fee:)
+  def in_pipe!(damage:, block:, fee:, args:)
     {
       damage: damage,
       block: block,
@@ -40,9 +40,9 @@ class Creacard::Status
     }
   end
 
-  def new_turn_act!(owner:)
+  def new_turn_act!
   end
 
-  def end_turn_act!(owner:)
+  def end_turn_act!
   end
 end

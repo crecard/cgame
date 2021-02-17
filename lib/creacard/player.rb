@@ -54,7 +54,7 @@ class Creacard::Player
     @can_draw_this_turn = true
 
     @statuses.each do |status_class, status|
-      status.new_turn_act!(owner: self)
+      status.new_turn_act!
     end
 
     @block = 0 if @is_block_expire
@@ -65,7 +65,7 @@ class Creacard::Player
 
   def end_turn!
     @statuses.each do |status_class, status|
-      status.end_turn_act!(owner: self)
+      status.end_turn_act!
     end
 
     discard_cards!(count: @decks[:hand].size)
@@ -83,13 +83,14 @@ class Creacard::Player
     @energy >= fee
   end
 
-  def get_damage!(damage:)
+  def get_damage!(damage:, attacker:)
     before_damage = damage
     damage = status_pipeline(
       pipe_type: :in,
       damage: before_damage,
       block: 0,
-      fee: 0
+      fee: 0,
+      args: { attacker: attacker }
     )[:damage]
 
     if @block > damage
@@ -116,7 +117,8 @@ class Creacard::Player
       pipe_type: :out,
       damage: before_damage,
       block: 0,
-      fee: 0
+      fee: 0,
+      args: {}
     )[:damage]
 
     damage = 0 if damage < 0
@@ -143,16 +145,17 @@ class Creacard::Player
     end
   end
 
-  def status_pipeline(pipe_type:, damage:, block:, fee:)
+  def status_pipeline(pipe_type:, damage:, block:, fee:, args:)
     piped_damage = damage
     piped_block = block
     piped_fee = fee
     @statuses.each do |status_class, status|
       piped_data = status.public_send(
-        "#{pipe_type}_pipe",
+        "#{pipe_type}_pipe!",
         damage: piped_damage,
         block: piped_block,
-        fee: piped_fee
+        fee: piped_fee,
+        args: args
       )
       piped_damage = piped_data[:damage]
       piped_block = piped_data[:block]

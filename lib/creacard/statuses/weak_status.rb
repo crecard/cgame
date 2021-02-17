@@ -1,5 +1,5 @@
 class Creacard::WeakStatus < Creacard::Status
-  def out_pipe(damage:, block:, fee:)
+  def out_pipe!(damage:, block:, fee:)
     {
       damage: (damage.to_i * 0.75).floor,
       block: block,
@@ -7,7 +7,7 @@ class Creacard::WeakStatus < Creacard::Status
     }
   end
 
-  def end_turn_act!(owner:)
+  def end_turn_act!
     change_count!(change: -1)
   end
 
