@@ -1,0 +1,12 @@
+entrench:
+  name: Entrench
+  fee: 2
+  exhaust: false
+  targets:
+    one: myself
+  attributes:
+  - block:
+      target_range: single
+      target: one
+      value_type: variable
+      value: block

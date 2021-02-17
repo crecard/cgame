@@ -4,8 +4,8 @@ tzwm_1:
   turn_energy: 3
   draw_count: 3
   deck_built:
-    shrug_it_off: 10
-    defend: 1
+    entrench: 10
+    defend: 10
     bash: 1
     body_slam: 1
     clothesline: 1
