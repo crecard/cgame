@@ -1,0 +1,16 @@
+shrug_it_off:
+  name: Shrug it Off
+  fee: 1
+  exhaust: false
+  targets:
+    one: myself
+  attributes:
+  - block:
+      target_range: single
+      target: one
+      value: 8
+  - draw_card:
+      target_range: single
+      target: one
+      value: 1
+

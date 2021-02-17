@@ -45,7 +45,8 @@ class Creacard::Attribute
       attributes_data.map do |attr|
         attr_name = attr.keys[0]
         attr_data = attr[attr_name]
-        Object.const_get("Creacard::#{attr_name.capitalize}Attribute").new(
+        attr_class = attr_name.split('_').map(&:capitalize).join
+        Object.const_get("Creacard::#{attr_class}Attribute").new(
           target_range: attr_data['target_range'],
           target: attr_data['target'],
           value_type: attr_data['value_type'],

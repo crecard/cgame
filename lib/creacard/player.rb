@@ -49,16 +49,7 @@ class Creacard::Player
   def new_turn!
     @energy = @turn_energy
 
-    need_draw = @draw_count
-    while need_draw > 0 do
-      if @decks[:unused].empty?
-        break if @decks[:used].empty?
-        @decks[:unused] = @decks[:used].shuffle
-        @decks[:used] = []
-      end
-      @decks[:hand] << @decks[:unused].pop
-      need_draw -= 1
-    end
+    draw_cards!(count: @draw_count)
   end
 
   def end_turn!
@@ -120,12 +111,30 @@ class Creacard::Player
     damage
   end
 
+  def draw_cards!(count:)
+    while count > 0 do
+      if @decks[:unused].empty?
+        if @decks[:used].empty?
+          puts '卡池已空，无牌可抽'
+          break
+        end
+
+        @decks[:unused] = @decks[:used].shuffle
+        @decks[:used] = []
+      end
+
+      @decks[:hand] << @decks[:unused].pop
+      count -= 1
+    end
+  end
+
   def status_pipeline(pipe_type:, damage:, block:, fee:)
     piped_damage = damage
     piped_block = block
     piped_fee = fee
     @statuses.each do |status_class, status|
-      piped_data = status.public_send("#{pipe_type}_pipe",
+      piped_data = status.public_send(
+        "#{pipe_type}_pipe",
         damage: piped_damage,
         block: piped_block,
         fee: piped_fee
