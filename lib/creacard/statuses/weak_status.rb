@@ -7,7 +7,7 @@ class Creacard::WeakStatus < Creacard::Status
     }
   end
 
-  def end_turn_act!
+  def end_turn_act!(owner:)
     change_count!(change: -1)
   end
 

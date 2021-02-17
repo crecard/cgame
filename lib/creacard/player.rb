@@ -8,6 +8,8 @@ class Creacard::Player
   attr_reader :decks
   attr_reader :combat, :team
 
+  attr_accessor :is_block_expire
+
   INIT_HEALTH = 100
   INIT_ENERGY = 3
   INIT_BLOCK = 0
@@ -47,6 +49,12 @@ class Creacard::Player
   end
 
   def new_turn!
+    @is_block_expire = true
+    @statuses.each do |status_class, status|
+      status.new_turn_act!(owner: self)
+    end
+
+    @block = 0 if @is_block_expire
     @energy = @turn_energy
 
     draw_cards!(count: @draw_count)
@@ -54,8 +62,10 @@ class Creacard::Player
 
   def end_turn!
     @statuses.each do |status_class, status|
-      status.end_turn_act!
+      status.end_turn_act!(owner: self)
     end
+
+    discard_cards!(count: @decks[:hand].size)
   end
 
   def is_dead?
@@ -161,6 +171,13 @@ class Creacard::Player
       @decks[:exhausted] << card
     else
       @decks[:used] << card
+    end
+  end
+
+  def discard_cards!(count:)
+    while count > 0 && @decks[:hand].size > 0 do
+      @decks[:used] << @decks[:hand].delete_at(0)
+      count -= 1
     end
   end
 

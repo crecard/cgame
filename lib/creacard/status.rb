@@ -39,4 +39,10 @@ class Creacard::Status
       fee: fee
     }
   end
+
+  def new_turn_act!(owner:)
+  end
+
+  def end_turn_act!(owner:)
+  end
 end
