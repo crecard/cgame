@@ -1,0 +1,12 @@
+after_image:
+  name: After Image
+  fee: 1
+  exhaust: true
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - status:
+        target: 0
+        value: 1
+        status: after_image

@@ -3,7 +3,7 @@ class Creacard::AThousandCutsStatus < Creacard::Status
     enemies = @combat.choose_the_enemy(@owner, 'all')
     enemies.each do |e|
       e.get_damage!(
-        damage: @count,
+        damage: 1,
         attacker: nil
       )
     end
@@ -15,7 +15,7 @@ class Creacard::AThousandCutsStatus < Creacard::Status
     end
 
     def description
-      "Whenever you play a card, deal the damage to ALL enemies."
+      "Whenever you play a card, deal 1 damage to ALL enemies."
     end
   end
 end
