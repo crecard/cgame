@@ -1,0 +1,18 @@
+shiv_silent_1:
+  name: 凌迟贼
+  max_health: 80
+  turn_energy: 3
+  draw_count: 5
+  deck_built:
+    a_thousand_cuts: 1
+    infinite_blades: 1
+    #accuracy: 1
+    after_image: 1
+    #finisher: 3
+    blade_dance: 3
+    cloak_and_dagger: 2
+    #escape_plan: 2
+    #calculated_gamble: 1
+    #acrobatics: 3
+    adrenaline: 1
+    #storm_of_steel: 1

@@ -1,8 +1,8 @@
 defend_ironclad_1:
-  name: tzwm
+  name: 防战1
   max_health: 80
   turn_energy: 3
-  draw_count: 3
+  draw_count: 5
   deck_built:
     body_slam: 3
     iron_wave: 2
