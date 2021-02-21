@@ -165,6 +165,7 @@ class Creacard::Player
   end
 
   def draw_the_card!(card_key:, deck_type:)
+    deck_type = deck_type.to_sym
     card = $card_pool[card_key].clone
     card.assign_owner!(self)
     @decks[deck_type] << card

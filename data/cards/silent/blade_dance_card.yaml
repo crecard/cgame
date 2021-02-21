@@ -1,0 +1,13 @@
+blade_dance:
+  name: Blade Dance
+  fee: 1
+  exhaust: false
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - draw_card:
+        target: 0
+        value: 3
+        card_key: shiv
+        deck_type: hand
