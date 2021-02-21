@@ -1,0 +1,14 @@
+adrenaline:
+  name: Adrenaline
+  fee: 0
+  exhaust: true
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - energy:
+        target: 0
+        value: 1
+    - draw_card:
+        target: 0
+        value: 2
