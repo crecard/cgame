@@ -1,5 +1,6 @@
 entrench:
   name: Entrench
+  type: skill
   fee: 2
   exhaust: false
   targets:

@@ -1,5 +1,6 @@
 cloak_and_dagger:
   name: Cloak And Dagger
+  type: skill
   fee: 1
   exhaust: false
   targets:

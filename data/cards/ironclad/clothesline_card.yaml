@@ -1,5 +1,6 @@
 clothesline:
   name: Clothesline
+  type: attack
   fee: 2
   exhaust: false
   targets:

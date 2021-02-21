@@ -1,5 +1,6 @@
 defend:
   name: 防御
+  type: skill
   fee: 1
   exhaust: false
   targets:

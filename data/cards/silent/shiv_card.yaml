@@ -1,5 +1,6 @@
 shiv:
   name: Shiv
+  type: attack
   fee: 0
   exhaust: true
   targets:

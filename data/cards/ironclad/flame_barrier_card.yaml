@@ -1,5 +1,6 @@
 flame_barrier:
   name: Flame Barrier
+  type: skill
   fee: 2
   exhaust: false
   targets:

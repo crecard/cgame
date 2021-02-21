@@ -1,5 +1,6 @@
 battle_trance:
   name: Battle Trance
+  type: skill
   fee: 0
   exhaust: false
   targets:

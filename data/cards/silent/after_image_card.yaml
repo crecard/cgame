@@ -1,5 +1,6 @@
 after_image:
   name: After Image
+  type: power
   fee: 1
   exhaust: true
   targets:

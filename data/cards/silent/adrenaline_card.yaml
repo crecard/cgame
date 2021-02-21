@@ -1,5 +1,6 @@
 adrenaline:
   name: Adrenaline
+  type: skill
   fee: 0
   exhaust: true
   targets:

@@ -1,5 +1,6 @@
 strike:
   name: 打击
+  type: attack
   fee: 1
   exhaust: false
   targets:

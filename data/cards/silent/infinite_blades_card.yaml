@@ -1,5 +1,6 @@
 infinite_blades:
   name: Infinite Blades
+  type: power
   fee: 1
   exhaust: true
   targets:

@@ -1,5 +1,6 @@
 barricade:
   name: Barricade
+  type: power
   fee: 3
   exhaust: true
   targets:

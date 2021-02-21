@@ -1,5 +1,6 @@
 a_thousand_cuts:
   name: A Thousand Cuts
+  type: power
   fee: 2
   exhaust: true
   targets:

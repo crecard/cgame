@@ -1,5 +1,6 @@
 shrug_it_off:
   name: Shrug it Off
+  type: skill
   fee: 1
   exhaust: false
   targets:

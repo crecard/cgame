@@ -1,5 +1,6 @@
 metallicize:
   name: Metallicize
+  type: power
   fee: 1
   exhaust: true
   targets:

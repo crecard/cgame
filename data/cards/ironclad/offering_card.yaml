@@ -1,5 +1,6 @@
 offering:
   name: Offering
+  type: skill
   fee: 0
   exhaust: true
   targets:

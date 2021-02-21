@@ -1,5 +1,6 @@
 blade_dance:
   name: Blade Dance
+  type: skill
   fee: 1
   exhaust: false
   targets:

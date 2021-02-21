@@ -1,5 +1,6 @@
 ghostly_armor:
   name: Ghostly Armor
+  type: skill
   fee: 1
   exhaust: true
   targets:
