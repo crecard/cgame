@@ -3,10 +3,9 @@ class Creacard::CannotDrawThisTurnAttribute < Creacard::Attribute
     'You cannot draw additional cards this turn'
   end
 
-  def act!(owner:, targets: [])
-    case @target_range
-    when :single
-      targets[0].can_draw_this_turn = false
+  def act!(targets:)
+    targets.each do |t|
+      t.can_draw_this_turn = false
     end
   end
 end

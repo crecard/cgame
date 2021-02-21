@@ -3,13 +3,12 @@ clothesline:
   fee: 2
   exhaust: false
   targets:
-    one: enemy
+    - range: single
+      side: enemy
   attributes:
-  - damage:
-      target_range: single
-      target: one
-      value: 12
-  - weak:
-      target_range: single
-      target: one
-      value: 2
+    - damage:
+        target: 0
+        value: 12
+    - weak:
+        target: 0
+        value: 2

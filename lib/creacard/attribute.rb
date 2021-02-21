@@ -1,23 +1,15 @@
 class Creacard::Attribute
-  TARGET_RANGES = [
-    :all,
-    :single,
-  ]
-
   VALUE_TYPES = [
     :int,
     :variable
   ]
 
   attr_reader :target_range, :target, :value_type, :value
+  attr_reader :owner, :combat
 
-  class WrongTargetRangeError < StandardError; end
   class WrongValueTypeError < StandardError; end
 
-  def initialize(target_range:, target:, value_type:, value:)
-    @target_range = target_range.to_sym
-    raise WrongTargetRangeError unless TARGET_RANGES.include?(@target_range)
-
+  def initialize(target:, value_type:, value:)
     @value_type = value_type || :int
     @value_type = @value_type.to_sym
     raise WrongValueTypeError unless VALUE_TYPES.include?(@value_type)
@@ -28,16 +20,24 @@ class Creacard::Attribute
       @value = value.to_s
     end
 
-    @target = target.to_s
+    @target = target
   end
 
-  def value(owner)
+  def assign_owner!(owner)
+    @owner = owner
+  end
+
+  def value
     return @value if @value_type == :int
 
     case @value
     when 'block'
-      owner.block
+      @owner ? @owner.block : 0
     end
+  end
+
+  def act!(targets:)
+    @combat = @owner.combat
   end
 
   class << self
@@ -47,7 +47,6 @@ class Creacard::Attribute
         attr_data = attr[attr_name]
         attr_class = attr_name.split('_').map(&:capitalize).join
         Object.const_get("Creacard::#{attr_class}Attribute").new(
-          target_range: attr_data['target_range'],
           target: attr_data['target'],
           value_type: attr_data['value_type'],
           value: attr_data['value']

@@ -3,17 +3,15 @@ offering:
   fee: 0
   exhaust: true
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - health:
-      target_range: single
-      target: one
-      value: -6
-  - energy:
-      target_range: single
-      target: one
-      value: 2
-  - draw_card:
-      target_range: single
-      target: one
-      value: 3
+    - health:
+        target: 0
+        value: -6
+    - energy:
+        target: 0
+        value: 2
+    - draw_card:
+        target: 0
+        value: 3

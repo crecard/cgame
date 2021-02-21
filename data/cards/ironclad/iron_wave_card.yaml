@@ -3,14 +3,14 @@ iron_wave:
   fee: 1
   exhaust: false
   targets:
-    one: myself
-    two: enemy
+    - range: single
+      side: myself
+    - range: single
+      side: enemy
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value: 5
-  - damage:
-      target_range: single
-      target: two
-      value: 5
+    - block:
+        target: 0
+        value: 5
+    - damage:
+        target: 1
+        value: 5

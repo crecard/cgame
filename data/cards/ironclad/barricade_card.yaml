@@ -3,9 +3,9 @@ barricade:
   fee: 3
   exhaust: true
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - barricade:
-      target_range: single
-      target: one
-      value: 1
+    - barricade:
+        target: 0
+        value: 1

@@ -3,10 +3,10 @@ body_slam:
   fee: 1
   exhaust: false
   targets:
-    one: enemy
+    - range: single
+      side: enemy
   attributes:
-  - damage:
-      target_range: single
-      target: one
-      value_type: variable
-      value: block
+    - damage:
+        target: 0
+        value_type: variable
+        value: block

@@ -3,13 +3,12 @@ shrug_it_off:
   fee: 1
   exhaust: false
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value: 8
-  - draw_card:
-      target_range: single
-      target: one
-      value: 1
+    - block:
+        target: 0
+        value: 8
+    - draw_card:
+        target: 0
+        value: 1

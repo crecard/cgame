@@ -2,6 +2,12 @@ require 'yaml'
 
 class Creacard::Card
   attr_reader :key, :name, :fee, :exhaust, :targets, :attributes
+  attr_reader :owner, :combat
+
+  TARGET_RANGES = [
+    :all,
+    :single,
+  ]
 
   def initialize(key, name, fee, exhaust, targets, attributes)
     @key = key
@@ -12,23 +18,29 @@ class Creacard::Card
     @attributes = attributes
   end
 
-  def act!(owner, combat)
-    target_choosed = {}
-    @attributes.each do |attr|
-      unless target_choosed[attr.target]
-        target = choose_target(@targets[attr.target], owner, combat)
-        target_choosed[attr.target] = target
-      end
-
-      attr.act!(
-        owner: owner,
-        targets: [target_choosed[attr.target]]
-      )
+  def assign_owner!(owner)
+    @owner = owner
+    attributes.each do |attr|
+      attr.assign_owner!(@owner)
     end
   end
 
-  def choose_target(target_type, owner, combat)
-    combat.public_send("choose_the_#{target_type}".to_sym, owner)
+  def act!
+    @combat = owner.combat
+    targets_choosed = []
+    @attributes.each do |attr|
+      unless targets_choosed[attr.target]
+        target_attr = @targets[attr.target]
+        targets = @combat.public_send(
+          "choose_the_#{target_attr['side']}".to_sym,
+          @owner,
+          target_attr['range']
+        )
+        targets_choosed[attr.target] = targets
+      end
+
+      attr.act!(targets: targets_choosed[attr.target])
+    end
   end
 
   def description

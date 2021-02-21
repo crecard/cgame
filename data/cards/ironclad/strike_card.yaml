@@ -3,9 +3,9 @@ strike:
   fee: 1
   exhaust: false
   targets:
-    one: enemy
+    - range: single
+      side: enemy
   attributes:
-  - damage:
-      target_range: single
-      target: one
-      value: 5
+    - damage:
+        target: 0
+        value: 5

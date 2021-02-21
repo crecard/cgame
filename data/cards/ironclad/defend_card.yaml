@@ -3,9 +3,9 @@ defend:
   fee: 1
   exhaust: false
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value: 5
+    - block:
+        target: 0
+        value: 5

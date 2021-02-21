@@ -3,13 +3,12 @@ flame_barrier:
   fee: 2
   exhaust: false
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value: 12
-  - flame_barrier:
-      target_range: single
-      target: one
-      value: 4
+    - block:
+        target: 0
+        value: 12
+    - flame_barrier:
+        target: 0
+        value: 4

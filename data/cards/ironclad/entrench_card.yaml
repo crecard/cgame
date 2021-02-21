@@ -3,10 +3,10 @@ entrench:
   fee: 2
   exhaust: false
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value_type: variable
-      value: block
+    - block:
+        target: one
+        value_type: variable
+        value: block

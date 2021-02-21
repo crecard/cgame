@@ -3,9 +3,9 @@ ghostly_armor:
   fee: 1
   exhaust: true
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - block:
-      target_range: single
-      target: one
-      value: 10
+    - block:
+        target: 0
+        value: 10

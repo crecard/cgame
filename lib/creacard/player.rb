@@ -35,6 +35,7 @@ class Creacard::Player
       used: [],
       exhausted: [],
     }
+    @decks[:built].each { |c| c.assign_owner!(self) }
 
     @statuses = statuses
   end
@@ -42,7 +43,8 @@ class Creacard::Player
   def new_combat!(combat, team)
     @combat = combat
     @team = team
-    @decks[:unused] = @decks[:built].shuffle
+    cloned_built = @decks[:built].shuffle.map { |c| c.clone }
+    @decks[:unused] = cloned_built
     @decks[:hand] = []
     @decks[:used] = []
     @decks[:exhausted] = []
@@ -140,19 +142,23 @@ class Creacard::Player
     return unless @can_draw_this_turn
 
     while count > 0 do
-      if @decks[:unused].empty?
-        if @decks[:used].empty?
-          puts '卡池已空，无牌可抽'
-          break
-        end
-
-        @decks[:unused] = @decks[:used].shuffle
-        @decks[:used] = []
-      end
-
-      @decks[:hand] << @decks[:unused].pop
+      draw_a_card!
       count -= 1
     end
+  end
+
+  def draw_a_card!
+    if @decks[:unused].empty?
+      if @decks[:used].empty?
+        puts '卡池已空，无牌可抽'
+        return
+      end
+
+      @decks[:unused] = @decks[:used].shuffle
+      @decks[:used] = []
+    end
+
+    @decks[:hand] << @decks[:unused].pop
   end
 
   def status_pipeline(pipe_type:, damage:, block:, fee:, args:)
@@ -184,7 +190,7 @@ class Creacard::Player
 
     card = @decks[deck_type].delete_at(card_index)
     @energy -= card.fee
-    card.act!(self, @combat)
+    card.act!
     if card.exhaust
       @decks[:exhausted] << card
     else

@@ -3,9 +3,9 @@ metallicize:
   fee: 1
   exhaust: true
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - metallicize:
-      target_range: single
-      target: one
-      value: 3
+    - metallicize:
+        target: 0
+        value: 3

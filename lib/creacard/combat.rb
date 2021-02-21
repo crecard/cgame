@@ -98,8 +98,10 @@ class Creacard::Combat
     end
   end
 
-  def choose_the_enemy(owner)
+  def choose_the_enemy(owner, range)
     enemy_teams = teams.reject { |t| t == owner.team }
+    return enemy_teams.flatten if range == 'all'
+
     enemy_index = 0
     enemies = []
     enemy_teams.each.with_index do |enemy_team, enemy_team_index|
@@ -113,16 +115,13 @@ class Creacard::Combat
       print('Choose the enemy to attack: ')
       choose = gets.to_i - 1
 
-      return enemies[choose] if choose >= 0 && choose < enemy_index
+      return [enemies[choose]] if choose >= 0 && choose < enemy_index
       puts 'Wrong choose, try again'
     end
   end
 
-  def choose_the_myself(owner)
-    owner
-  end
-
-  def choose_the_friend
+  def choose_the_myself(owner, _)
+    [owner]
   end
 
   private

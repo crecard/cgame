@@ -1,17 +1,16 @@
 class Creacard::DamageAttribute < Creacard::Attribute
 
   def description
-    "造成 #{@value} 点伤害"
+    "造成 #{value} 点伤害"
   end
 
-  def act!(owner:, targets: [])
-    damage = owner.make_damage(damage: value(owner))
+  def act!(targets:)
+    damage = @owner.make_damage(damage: value)
 
-    case @target_range
-    when :single
-      targets[0].get_damage!(
+    targets.each do |t|
+      t.get_damage!(
         damage: damage,
-        attacker: owner
+        attacker: @owner
       )
     end
   end

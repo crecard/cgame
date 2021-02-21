@@ -3,13 +3,12 @@ battle_trance:
   fee: 0
   exhaust: false
   targets:
-    one: myself
+    - range: single
+      side: myself
   attributes:
-  - draw_card:
-      target_range: single
-      target: one
-      value: 3
-  - cannot_draw_this_turn:
-      target_range: single
-      target: one
-      value: null
+    - draw_card:
+        target: 0
+        value: 3
+    - cannot_draw_this_turn:
+        target: 0
+        value: null
