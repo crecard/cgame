@@ -1,0 +1,16 @@
+cloak_and_dagger:
+  name: Cloak And Dagger
+  fee: 1
+  exhaust: false
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - block:
+        target: 0
+        value: 6
+    - draw_card:
+        target: 0
+        value: 1
+        card_key: shiv
+        deck_type: hand
