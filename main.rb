@@ -4,7 +4,7 @@ require_relative './lib/creacard'
 
 $card_pool = Creacard::Card.load_all_cards('./data/cards')
 
-player_a = Creacard::Player.load_player('tzwm_1')
+player_a = Creacard::Player.load_player('shiv_silent_1')
 player_b = Creacard::Player.load_player('defend_ironclad_1')
 
 combat = Creacard::Combat.new([[player_a], [player_b]])
