@@ -85,7 +85,7 @@ class Creacard::Combat
       choose = choose.to_i - 1
       if choose >= 0 && choose < @current_player.decks[:hand].size
         begin
-          @current_player.use_the_card!(:hand, choose)
+          @current_player.play_the_card!(:hand, choose)
           check_winner!
 
           return

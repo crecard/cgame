@@ -4,12 +4,12 @@ class Creacard::Attribute
     :variable
   ]
 
-  attr_reader :target_range, :target, :value_type, :value
+  attr_reader :target, :value_type, :value, :args
   attr_reader :owner, :combat
 
   class WrongValueTypeError < StandardError; end
 
-  def initialize(target:, value_type:, value:)
+  def initialize(target:, value_type:, value:, args:)
     @value_type = value_type || :int
     @value_type = @value_type.to_sym
     raise WrongValueTypeError unless VALUE_TYPES.include?(@value_type)
@@ -21,6 +21,7 @@ class Creacard::Attribute
     end
 
     @target = target
+    @args = args
   end
 
   def assign_owner!(owner)
@@ -49,7 +50,8 @@ class Creacard::Attribute
         Object.const_get("Creacard::#{attr_class}Attribute").new(
           target: attr_data['target'],
           value_type: attr_data['value_type'],
-          value: attr_data['value']
+          value: attr_data['value'],
+          args: attr_data
         )
       end
     end

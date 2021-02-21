@@ -159,6 +159,9 @@ class Creacard::Player
     end
 
     @decks[:hand] << @decks[:unused].pop
+    @statuses.each do |status_class, status|
+      status.draw_a_card!
+    end
   end
 
   def status_pipeline(pipe_type:, damage:, block:, fee:, args:)
@@ -185,7 +188,7 @@ class Creacard::Player
     }
   end
 
-  def use_the_card!(deck_type, card_index)
+  def play_the_card!(deck_type, card_index)
     raise NotEnoughFeeError unless has_energy?(@decks[deck_type][card_index].fee)
 
     card = @decks[deck_type].delete_at(card_index)
@@ -195,6 +198,9 @@ class Creacard::Player
       @decks[:exhausted] << card
     else
       @decks[:used] << card
+    end
+    @statuses.each do |status_class, status|
+      status.play_a_card!
     end
   end
 

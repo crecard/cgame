@@ -47,6 +47,10 @@ class Creacard::Status
   def end_turn_act!
   end
 
-  def draw_a_cards!
+  def draw_a_card!
+  end
+
+  def play_a_card!
+
   end
 end

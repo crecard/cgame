@@ -4,7 +4,7 @@ tzwm_1:
   turn_energy: 3
   draw_count: 3
   deck_built:
-    offering: 100
+    a_thousand_cuts: 100
     flame_barrier: 10
     metallicize: 1
     shrug_it_off: 1

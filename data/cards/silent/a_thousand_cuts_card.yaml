@@ -1,0 +1,12 @@
+a_thousand_cuts:
+  name: A Thousand Cuts
+  fee: 2
+  exhaust: true
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - status:
+        target: 0
+        value: 1
+        status: a_thousand_cuts
