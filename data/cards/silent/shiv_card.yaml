@@ -1,0 +1,11 @@
+shiv:
+  name: Shiv
+  fee: 0
+  exhaust: true
+  targets:
+    - range: single
+      side: enemy
+  attributes:
+    - damage:
+        target: 0
+        value: 4

@@ -1,0 +1,12 @@
+infinite_blades:
+  name: Infinite Blades
+  fee: 1
+  exhaust: true
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - status:
+        target: 0
+        value: 1
+        status: infinite_blades

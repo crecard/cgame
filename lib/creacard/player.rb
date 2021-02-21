@@ -164,6 +164,16 @@ class Creacard::Player
     end
   end
 
+  def draw_the_card!(card_key:, deck_type:)
+    card = $card_pool[card_key].clone
+    card.assign_owner!(self)
+    @decks[deck_type] << card
+
+    @statuses.each do |status_class, status|
+      status.draw_a_card!
+    end if deck_type == :hand
+  end
+
   def status_pipeline(pipe_type:, damage:, block:, fee:, args:)
     piped_damage = damage
     piped_block = block
