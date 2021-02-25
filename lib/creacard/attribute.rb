@@ -5,7 +5,7 @@ class Creacard::Attribute
   ]
 
   attr_reader :target, :value_type, :value, :args
-  attr_reader :owner, :combat
+  attr_reader :owner, :combat, :card
 
   class WrongValueTypeError < StandardError; end
 
@@ -24,8 +24,9 @@ class Creacard::Attribute
     @args = args
   end
 
-  def assign_owner!(owner)
-    @owner = owner
+  def assign_card!(card)
+    @card = card
+    @owner = card.owner
   end
 
   def value

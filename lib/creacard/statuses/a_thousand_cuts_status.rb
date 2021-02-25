@@ -4,7 +4,8 @@ class Creacard::AThousandCutsStatus < Creacard::Status
     enemies.each do |e|
       e.get_damage!(
         damage: 1,
-        attacker: nil
+        attacker: nil,
+        args: { status: self }
       )
     end
   end

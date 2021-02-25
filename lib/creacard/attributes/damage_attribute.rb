@@ -5,12 +5,16 @@ class Creacard::DamageAttribute < Creacard::Attribute
   end
 
   def act!(targets:)
-    damage = @owner.make_damage(damage: value)
+    damage = @owner.make_damage(
+      damage: value,
+      args: { card: card }
+    )
 
     targets.each do |t|
       t.get_damage!(
         damage: damage,
-        attacker: @owner
+        attacker: @owner,
+        args: { card: card }
       )
     end
   end

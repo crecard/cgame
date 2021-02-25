@@ -3,7 +3,8 @@ class Creacard::FlameBarrierStatus < Creacard::Status
     attacker = args[:attacker]
     attacker.get_damage!(
       damage: @count,
-      attacker: nil
+      attacker: nil,
+      args: { status: self }
     ) if attacker
 
     super

@@ -1,0 +1,13 @@
+accuracy:
+  name: Accuracy
+  type: power
+  fee: 1
+  exhaust: true
+  targets:
+    - range: single
+      side: myself
+  attributes:
+    - status:
+        target: 0
+        value: 4
+        status: accuracy

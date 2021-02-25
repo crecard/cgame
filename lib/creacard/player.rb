@@ -85,14 +85,14 @@ class Creacard::Player
     @energy >= fee
   end
 
-  def get_damage!(damage:, attacker:)
+  def get_damage!(damage:, attacker:, args:)
     before_damage = damage
     damage = status_pipeline(
       pipe_type: :in,
       damage: before_damage,
       block: 0,
       fee: 0,
-      args: { attacker: attacker }
+      args: args.merge(attacker: attacker)
     )[:damage]
 
     if @block > damage
@@ -123,14 +123,14 @@ class Creacard::Player
     puts "#{name} 生命增加 #{health}"
   end
 
-  def make_damage(damage:)
+  def make_damage(damage:, args:)
     before_damage = damage
     damage = status_pipeline(
       pipe_type: :out,
       damage: before_damage,
       block: 0,
       fee: 0,
-      args: {}
+      args: args
     )[:damage]
 
     damage = 0 if damage < 0

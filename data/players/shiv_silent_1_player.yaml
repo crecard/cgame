@@ -6,7 +6,7 @@ shiv_silent_1:
   deck_built:
     a_thousand_cuts: 1
     infinite_blades: 1
-    #accuracy: 1
+    accuracy: 1
     after_image: 1
     #finisher: 3
     blade_dance: 3

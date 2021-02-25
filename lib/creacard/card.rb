@@ -21,7 +21,7 @@ class Creacard::Card
   def assign_owner!(owner)
     @owner = owner
     attributes.each do |attr|
-      attr.assign_owner!(@owner)
+      attr.assign_card!(self)
     end
   end
 
