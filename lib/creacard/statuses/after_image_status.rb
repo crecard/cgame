@@ -1,5 +1,5 @@
 class Creacard::AfterImageStatus < Creacard::Status
-  def play_a_card!
+  def play_a_card!(card:)
     @owner.get_block!(block: 1)
   end
 

@@ -1,5 +1,5 @@
 class Creacard::AThousandCutsStatus < Creacard::Status
-  def play_a_card!
+  def play_a_card!(card:)
     enemies = @combat.choose_the_enemy(@owner, 'all')
     enemies.each do |e|
       e.get_damage!(

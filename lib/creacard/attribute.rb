@@ -35,6 +35,8 @@ class Creacard::Attribute
     case @value
     when 'block'
       @owner ? @owner.block : 0
+    when 'attack_card_played_this_turn'
+      @owner ? @owner.attack_card_played_this_turn : 0
     end
   end
 

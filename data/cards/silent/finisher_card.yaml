@@ -1,0 +1,13 @@
+finisher:
+  name: Finisher
+  type: attack
+  fee: 1
+  exhaust: false
+  targets:
+    - range: single
+      side: enemy
+  attributes:
+    - damage:
+        target: 0
+        value_type: variable
+        value: attack_card_played_this_turn

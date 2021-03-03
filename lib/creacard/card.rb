@@ -1,7 +1,7 @@
 require 'yaml'
 
 class Creacard::Card
-  attr_reader :key, :name, :fee, :exhaust, :targets, :attributes
+  attr_reader :key, :name, :type, :fee, :exhaust, :targets, :attributes
   attr_reader :owner, :combat
 
   TARGET_RANGES = [
@@ -9,9 +9,10 @@ class Creacard::Card
     :single,
   ]
 
-  def initialize(key, name, fee, exhaust, targets, attributes)
+  def initialize(key, name, type, fee, exhaust, targets, attributes)
     @key = key
     @name = name
+    @type = type
     @fee = fee
     @exhaust = exhaust
     @targets = targets
@@ -68,6 +69,7 @@ class Creacard::Card
         Creacard::Card.new(
           key,
           data['name'],
+          data['type'],
           data['fee'],
           data['exhaust'],
           data['targets'],

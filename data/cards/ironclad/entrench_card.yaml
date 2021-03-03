@@ -8,6 +8,6 @@ entrench:
       side: myself
   attributes:
     - block:
-        target: one
+        target: 0
         value_type: variable
         value: block

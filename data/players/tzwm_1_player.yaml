@@ -4,8 +4,7 @@ tzwm_1:
   turn_energy: 3
   draw_count: 3
   deck_built:
-    accuracy: 100
-    shiv: 100
+    finisher: 100
     metallicize: 1
     shrug_it_off: 1
     barricade: 1

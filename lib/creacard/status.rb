@@ -50,7 +50,6 @@ class Creacard::Status
   def draw_a_card!
   end
 
-  def play_a_card!
-
+  def play_a_card!(card:)
   end
 end

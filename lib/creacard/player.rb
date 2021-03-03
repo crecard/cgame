@@ -10,6 +10,8 @@ class Creacard::Player
 
   attr_accessor :is_block_expire, :can_draw_this_turn
 
+  attr_reader :attack_card_played_this_turn
+
   INIT_HEALTH = 100
   INIT_ENERGY = 3
   INIT_BLOCK = 0
@@ -54,6 +56,7 @@ class Creacard::Player
     # init
     @is_block_expire = true
     @can_draw_this_turn = true
+    @attack_card_played_this_turn = 0
 
     @statuses.each do |status_class, status|
       status.new_turn_act!
@@ -211,8 +214,10 @@ class Creacard::Player
       @decks[:used] << card
     end
     @statuses.each do |status_class, status|
-      status.play_a_card!
+      status.play_a_card!(card: card)
     end
+
+    @attack_card_played_this_turn += 1 if card.type == 'attack'
   end
 
   def discard_cards!(count:)
